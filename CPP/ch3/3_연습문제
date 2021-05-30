@@ -1,0 +1,98 @@
+1. 객체 내부 데이터를 외부로부터 보호하기 위함이다. ( 외부 접근으로부터 객체를 보호하기 위한 것 )
+2. 3, private 접근 지정이 기본적으로 바람직하다. 그래야 캡슐화의 원칙이 지켜지기 때문이다.
+3. 모든 멤버 변수와 멤버 함수가 public 접근지정이 되어있으므로, 캡슐화를 달성하고 있지 않으며, add함수가 전역으로 선언되어 있어
+   캡슐화 원칙을 지키지 않고 있다.
+4. 
+class Age {
+    int age;
+public:
+    void older() { age++; }
+}
+
+5. class 선언 마지막에 ;을 넣어야 한다.
+6. 컴파일에 사실 문제는 없다. (생성자는 return 타입이 없으니 굳이 return; 문이 필요없다는 것 정도, but 오류 발생은 없다.)
+7. 기본 생성자가 없어 컴파일 오류가 발생한다. 기본생성자를 추가하면 된다.
+Building() { floor = 0; } 뭐 이런식으로
+
+8. 
+Calendar::Calendar() : year(10) {}
+int Calendar::getYear() {return this->year;}
+
+9. 2, 생성자는 하나만 생성가능하지 않다. 여러개 생성 가능하다.
+10. 3, 소멸자에는 매개변수가 없다.
+
+11. 
+(1) House::House(int n, int s) { this-numOfRooms = n; this->size = s; }
+(2) House::~House() { cout << numOfRooms << ' ' << size; }
+(3) b->c->a->a->d->d->c->b
+// test code
+#include "Mystring.h"
+#include <iostream>
+#include <string>
+#include "Exp.h"
+using namespace std;
+
+class House {
+	string s;
+public:
+	House(string a);
+	~House();
+};
+House::House(string a) { s = a; cout << a + " runned\n"; }
+House::~House() { cout << s << " exit\n"; }
+void f() {
+	House a("a");
+}
+House b("b"), c("c");
+void test2() {
+	f();
+	House d("d");
+}
+
+// output
+b runned
+c runned
+a runned
+a exit
+d runned
+d exit
+c exit
+b exit
+
+** 함수가 종료되면, 객체도 소멸하는 것에 주의한다.
+** 클래스에서 소멸자를 선언하지 않으면, 소멸자를 구현할 수 없다.
+
+12. c -> b -> a -> a -> b -> c
+
+13. TV의 기본생성자가 private로 되어있어 매개변수 없이 객체 생성이 안된다. 따라서 TV() 생성자를 public으로 옮긴다.
+
+14. channels 멤버를 수정할 수 없다. channels 멤버가 private이기 때문이다. 컴파일 오류를 없애려면 해당 멤버 변수를 public으로 바꾼다.
+
+15. 두 생성자가 자동인라인 함수이다. (선언부에서 구현된 생성자, 소멸자, 멤버함수는 자동 인라인 함수이다. & 생성자, 소멸자도 멤버 함수이다.)
+
+16. 2, 함수 호출 오버헤드로 인한 시간을 줄일 수 있으므로, 실행 속도가 향상된다.
+
+17. 1, 크기가 작은 함수에 대해 효과적이다.
+
+18. 1, 반복문, static 변수 등은 컴파일러에 따라 인라인 함수로 만들 수 없기도 하다.
+
+19. 4, 구조체는 디폴트 접근 지정자가 public 인 것을 제외하고 클래스와 같다. 생성자 소멸자를 가지며, 상속을 지원한다.
+
+20.
+class Family {
+  char tel[11];
+public:
+  int count;
+  char address[20];
+  Family();
+};
+ 
+21.
+struct Universe {
+private:
+  char creator[10];
+  int size;
+  char dateCreated[10];
+public:
+  Universe();
+};
