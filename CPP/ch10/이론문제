@@ -1,0 +1,74 @@
+1. 3, generic은 키워드로 쓰지 않는다. // 4, 제네릭 타입 선언을 위한 키워드는 class 뿐만 아니라 typename도 있다.
+
+2. 3, 디버깅이 힘들다. 오류메세지가 부족함.
+
+3. 2 // class 와 typename을 섞어써도 무방함.
+
+4. 2, 구체화는 컴파일러가 한다.
+
+5. 
+template <class T>
+bool equal(T a, T b) {
+  return a==b;
+}
+
+6.
+template <class T>
+void insert(T a, T* b, int index) {
+  b[index] = a;
+  // 또는 *(b+index) = a;
+}
+
+7. return type을 T로 고친다.
+
+8. return type을 bool로 고친다.
+
+9.
+(1)
+int avg(int *p, int n) {
+  int k;
+  int sum = 0;
+  for (k = 0; k < n; k++) sum += p[k];
+  return sum/n;
+}
+(2)
+double avg(double *p, int n) {
+  int k;
+  double sum = 0;
+  for (k = 0; k < n; k++) sum += p[k];
+  return sum/n;
+}
+
+10. (1) 공존할 수 있다.
+    (2) 3.14
+    (3) special 100
+    함수 중복이 템플릿 함수보다 우선된다.
+ 
+11. 3
+템플릿은 C++뿐만 아니라 자바같은 다른 언어에도 있다. 템플릿함수나 클래스는 컴파일러가 컴파일하지 않는다. 나중에 그 템플릿을 활용해 구체화하는데 써먹을 뿐이며,
+소스코드는 구체화된 소스코드로만 존재하여 컴파일된다. 템플릿함수에서도 디폴트매개변수는 사용가능하지만, 제네릭타입에 대해 디폴트 매개변수는 쓸 수 없다.
+
+12. (1) T* p; int size;
+    (2) template <class T> Container<T>::Container(int n) { p = new T[n]; }
+    (3) template <class T> Container<T>::~Container() { delete [] p; }
+    (4) template <class T> void Container<T>::get(int index) {return p[index]; }
+    (5) Container<char> c(26);
+    (6) for (int i = 0; i < 26; i++) { c.set(i, char('a'+i)); }
+        for (int i = 25; i >= 0; i--) { cout << c.get(i); }
+
+13. 1
+
+14. (1) <vector>
+    (2) <list>
+    (3) <algorithm>
+    (4) <algorithm>
+
+15. vector<double> v;
+    for_each(v.begin(), v.end(), [](double d) {cout << d << endl;}); // 단 for_each 함수를 사용하려면 algorithm 헤더를 포함해야한다.
+    
+16. vector<char>::iterator it; // 또는 auto it = v.begin(); 해버려도 되긴 된다.
+
+17. <map>
+
+18. (1) vector, map // 벡터를 굳이 쓰지 않고 맵으로 해도 상관은 없음. 시간을 숫자로 보고 넣으면 벡터도 가능.
+    (2) map
